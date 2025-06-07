@@ -1,16 +1,13 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { Database } from "@/types/supabase";
 
+type TestTableRow = Database["public"]["Tables"]["test_table"]["Row"];
 
 export async function fetch() {
   const supabase = await createClient();
-  console.log("Fetching data from Supabase...");
-  const { data, error } = await supabase.from("test_table").select();
-  if (error) {
-    console.error("Supabase error:", error);
-    return { data: null, error };
-  }
-  console.log("Data fetched:", data);
-  return { data, error: null };
+  
+  await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate a delay
+  return await supabase.from("test_table").select().overrideTypes<TestTableRow[]>();
 }

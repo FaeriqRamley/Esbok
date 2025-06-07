@@ -5,11 +5,12 @@ import PageLayout from "@/components/page-layout";
 import CardSectionsLayout from "@/components/card-sections-layout";
 import StatCard from "@/components/composite/stat-card";
 import MediaCard from "@/components/composite/media-card";
-import { fetch } from "./actions";
+import { Suspense } from "react";
+import { TestList } from "./TestList";
+
+export const revalidate = false;
 
 export default async function HomePage() {
-  const { data } = await fetch();
-
   return (
     <PageLayout contentClassName="space-y-5">
       {/* Header */}
@@ -19,8 +20,10 @@ export default async function HomePage() {
         </h1>
         <p className="text-sm text-gray-600 px-4">
           Share food, build community, reduce waste
-          {JSON.stringify(data)}
         </p>
+        <Suspense fallback={<span className="text-gray-500">Loading...</span>}>
+          <TestList />
+        </Suspense>
       </div>
 
       {/* Quick Stats */}
