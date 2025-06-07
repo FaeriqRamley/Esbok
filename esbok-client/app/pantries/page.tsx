@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/page-layout';
 import CardSectionsLayout from '@/components/card-sections-layout';
+import MediaCard from '@/components/composite/media-card';
 
 export default function PantriesPage() {
   const [pantryFilter, setPantryFilter] = useState('admin');
@@ -57,59 +58,61 @@ export default function PantriesPage() {
             {filteredPantries
               .sort((a, b) => (b.isFavorite ? 1 : 0) - (a.isFavorite ? 1 : 0))
               .map((pantry) => (
-                <Card key={pantry.id} className="border border-esbok-border overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="flex">
-                      <div className="w-20 h-20 bg-gray-100 flex-shrink-0 flex items-center justify-center relative">
-                        <img src={pantry.image || '/placeholder.svg'} alt={pantry.name} className="w-full h-full object-cover" />
-                        {pantry.isFavorite && (
-                          <div className="absolute top-1 right-1">
-                            <Heart className="w-3 h-3 fill-esbok-pink text-esbok-pink" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex-1 p-3">
-                        <div className="flex items-start justify-between mb-1">
-                          <h3 className="font-semibold text-sm text-gray-800">{pantry.name}</h3>
-                          {pantry.status === 'admin' && (
-                            <Badge variant='secondary' className="text-xs bg-esbok-mint text-gray-700">Admin</Badge>
-                          )}
-                          {pantry.status === 'joined' && (
-                            <Badge variant='secondary' className="text-xs bg-purple-100 text-purple-700">Joined</Badge>
-                          )}
+                <MediaCard
+                  key={pantry.id}
+                  className="overflow-hidden"
+                  contentClassName="p-0"
+                  left={
+                    <div className="w-20 h-20 bg-gray-100 flex items-center justify-center relative">
+                      <img src={pantry.image || '/placeholder.svg'} alt={pantry.name} className="w-full h-full object-cover" />
+                      {pantry.isFavorite && (
+                        <div className="absolute top-1 right-1">
+                          <Heart className="w-3 h-3 fill-esbok-pink text-esbok-pink" />
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
-                          <Apple className="w-3 h-3" />
-                          <span>{pantry.itemCount} items</span>
-                          {pantry.distance && (
-                            <>
-                              <span>•</span>
-                              <MapPin className="w-3 h-3" />
-                              <span>{pantry.distance}</span>
-                            </>
-                          )}
-                        </div>
-                        {pantry.lastContributed && (
-                          <div className="flex items-center gap-1 text-xs text-gray-500">
-                            <Clock className="w-3 h-3" />
-                            <span>Last contributed {pantry.lastContributed}</span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center pr-3">
-                        {pantry.status === 'nearby' ? (
-                          <Button size='sm' variant='outline' className="text-xs h-7 px-3 border-esbok-primary text-esbok-primary hover:bg-esbok-primary hover:text-gray-800">Join</Button>
-                        ) : (
-                          <div className="text-gray-400">
-                            <svg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                              <path d='M1 9L5 5L1 1' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
-                            </svg>
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </CardContent>
-                </Card>
+                  }
+                  right={
+                    pantry.status === 'nearby' ? (
+                      <Button size='sm' variant='outline' className="text-xs h-7 px-3 border-esbok-primary text-esbok-primary hover:bg-esbok-primary hover:text-gray-800">Join</Button>
+                    ) : (
+                      <div className="text-gray-400">
+                        <svg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                          <path d='M1 9L5 5L1 1' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+                        </svg>
+                      </div>
+                    )
+                  }
+                >
+                  <div className="p-3">
+                    <div className="flex items-start justify-between mb-1">
+                      <h3 className="font-semibold text-sm text-gray-800">{pantry.name}</h3>
+                      {pantry.status === 'admin' && (
+                        <Badge variant='secondary' className="text-xs bg-esbok-mint text-gray-700">Admin</Badge>
+                      )}
+                      {pantry.status === 'joined' && (
+                        <Badge variant='secondary' className="text-xs bg-purple-100 text-purple-700">Joined</Badge>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
+                      <Apple className="w-3 h-3" />
+                      <span>{pantry.itemCount} items</span>
+                      {pantry.distance && (
+                        <>
+                          <span>•</span>
+                          <MapPin className="w-3 h-3" />
+                          <span>{pantry.distance}</span>
+                        </>
+                      )}
+                    </div>
+                    {pantry.lastContributed && (
+                      <div className="flex items-center gap-1 text-xs text-gray-500">
+                        <Clock className="w-3 h-3" />
+                        <span>Last contributed {pantry.lastContributed}</span>
+                      </div>
+                    )}
+                  </div>
+                </MediaCard>
               ))}
           </div>
 
@@ -123,32 +126,34 @@ export default function PantriesPage() {
           <CardSectionsLayout title="Recently Viewed" className="pb-6">
             <div className="space-y-3">
               {recentlyViewedPantries.map((pantry) => (
-                <Card key={pantry.id} className="border border-esbok-border overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="flex">
-                      <div className="w-16 h-16 bg-gray-100 flex-shrink-0 flex items-center justify-center">
-                        <img src={pantry.image || '/placeholder.svg'} alt={pantry.name} className="w-full h-full object-cover" />
+                <MediaCard
+                  key={pantry.id}
+                  className="overflow-hidden"
+                  contentClassName="p-0"
+                  left={
+                    <div className="w-16 h-16 bg-gray-100 flex items-center justify-center">
+                      <img src={pantry.image || '/placeholder.svg'} alt={pantry.name} className="w-full h-full object-cover" />
+                    </div>
+                  }
+                  right={
+                    <Button size='sm' variant='outline' className="text-xs h-7 px-3 border-esbok-primary text-esbok-primary hover:bg-esbok-primary hover:text-gray-800">Join</Button>
+                  }
+                >
+                  <div className="p-3">
+                    <h3 className="font-semibold text-sm text-gray-800 mb-1">{pantry.name}</h3>
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3" />
+                        <span>{pantry.distance}</span>
                       </div>
-                      <div className="flex-1 p-3">
-                        <h3 className="font-semibold text-sm text-gray-800 mb-1">{pantry.name}</h3>
-                        <div className="flex items-center gap-3 text-xs text-gray-500">
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
-                            <span>{pantry.distance}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Apple className="w-3 h-3" />
-                            <span>{pantry.itemCount} items</span>
-                          </div>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-1">Viewed {pantry.lastViewed}</p>
-                      </div>
-                      <div className="flex items-center pr-3">
-                        <Button size='sm' variant='outline' className="text-xs h-7 px-3 border-esbok-primary text-esbok-primary hover:bg-esbok-primary hover:text-gray-800">Join</Button>
+                      <div className="flex items-center gap-1">
+                        <Apple className="w-3 h-3" />
+                        <span>{pantry.itemCount} items</span>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                    <p className="text-xs text-gray-400 mt-1">Viewed {pantry.lastViewed}</p>
+                  </div>
+                </MediaCard>
               ))}
             </div>
           </CardSectionsLayout>
