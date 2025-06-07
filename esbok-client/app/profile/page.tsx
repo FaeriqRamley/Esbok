@@ -1,5 +1,6 @@
 import BottomNav from "@/components/bottom-nav";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function ProfilePage() {
   return (
@@ -7,7 +8,7 @@ export default function ProfilePage() {
       <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <div className="flex flex-col items-center text-center p-6 space-y-3">
           <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100">
-            <img
+            <Image
               src="/placeholder.svg?height=96&width=96"
               alt="User avatar"
               className="w-full h-full object-cover"
