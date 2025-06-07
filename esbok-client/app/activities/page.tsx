@@ -1,13 +1,13 @@
-import BottomNav from "@/components/bottom-nav";
 import { activityFeed, myFoodItems } from "@/lib/data";
 import { Activity, Heart, Apple, MapPin, Clock, Plus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import PageLayout from "@/components/page-layout";
+import CardSectionsLayout from "@/components/card-sections-layout";
 
 export default function ActivitiesPage() {
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto pb-20 space-y-6">
+    <PageLayout contentClassName="space-y-6">
         <div className="px-5 pt-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Community Activity</h1>
           <p className="text-sm text-gray-600">See what&apos;s happening in your community</p>
@@ -43,8 +43,7 @@ export default function ActivitiesPage() {
             </Card>
           </div>
         </div>
-        <div className="px-5">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">My Food</h2>
+        <CardSectionsLayout title="My Food">
           <div className="space-y-3">
             {myFoodItems.map((food) => (
               <Card key={food.id} className="border border-esbok-border relative">
@@ -77,9 +76,8 @@ export default function ActivitiesPage() {
               </Card>
             ))}
           </div>
-        </div>
-        <div className="px-5 pb-6">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">Recent Activity</h2>
+        </CardSectionsLayout>
+        <CardSectionsLayout title="Recent Activity" className="pb-6">
           <div className="space-y-4">
             {activityFeed.map((activity) => (
               <Card key={activity.id} className="border border-esbok-border">
@@ -111,9 +109,7 @@ export default function ActivitiesPage() {
               </Card>
             ))}
           </div>
-        </div>
-      </div>
-      <BottomNav />
-    </div>
+        </CardSectionsLayout>
+    </PageLayout>
   );
 }
