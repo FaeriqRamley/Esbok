@@ -21,7 +21,13 @@ export default function PageLayout({
 }: PageLayoutProps) {
   return (
     <div className="max-w-sm mx-auto bg-white min-h-screen flex flex-col">
-      <div className={cn("flex-1 overflow-y-auto", withBottomNav && "pb-20", contentClassName)}>
+      <div
+        className={cn(
+          "flex-1 overflow-y-auto",
+          withBottomNav && "pb-20 md:pb-0",
+          contentClassName
+        )}
+      >
         {children}
       </div>
       {withBottomNav && <BottomNav />}

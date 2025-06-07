@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export default function BottomNav() {
   const pathname = usePathname();
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-sm bg-white border-t border-esbok-border">
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-sm bg-white border-t border-esbok-border md:hidden">
       <div className="flex items-center justify-around py-2 px-4">
         <Button
           asChild

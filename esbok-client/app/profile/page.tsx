@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export default function ProfilePage() {
   return (
     <div className="max-w-sm mx-auto bg-white min-h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto pb-20">
+      <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <div className="flex flex-col items-center text-center p-6 space-y-3">
           <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100">
             <img
