@@ -1,5 +1,5 @@
-import EsbokApp from "../esbok-app"
+import { redirect } from 'next/navigation';
 
 export default function Page() {
-  return <EsbokApp />
+  redirect('/home');
 }
