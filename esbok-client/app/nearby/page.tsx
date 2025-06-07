@@ -1,9 +1,9 @@
 import { nearbyPantries } from "@/lib/data";
 import { MapPin, Apple, Plus } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PageLayout from "@/components/page-layout";
 import CardSectionsLayout from "@/components/card-sections-layout";
+import MediaCard from "@/components/composite/media-card";
 
 export default function NearbyPage() {
   return (
@@ -67,33 +67,35 @@ export default function NearbyPage() {
           <CardSectionsLayout title="Nearby Pantries" className="py-4">
             <div className="space-y-3">
               {nearbyPantries.map((pantry) => (
-                <Card key={pantry.id} className="border border-esbok-border overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="flex">
-                      <div className="w-20 h-20 bg-gray-100 flex-shrink-0 flex items-center justify-center">
-                        <img src={pantry.image || "/placeholder.svg"} alt={pantry.name} className="w-full h-full object-cover" />
-                      </div>
-                      <div className="flex-1 p-3">
-                        <h3 className="font-semibold text-sm text-gray-800 mb-1">{pantry.name}</h3>
-                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
-                          <MapPin className="w-3 h-3" />
-                          <span>{pantry.distance}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-xs text-gray-500">
-                          <Apple className="w-3 h-3" />
-                          <span>{pantry.itemCount} items available</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center pr-3">
-                        <div className="text-gray-400">
-                          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 9L5 5L1 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                      </div>
+                <MediaCard
+                  key={pantry.id}
+                  className="overflow-hidden"
+                  contentClassName="p-0"
+                  left={
+                    <div className="w-20 h-20 bg-gray-100 flex items-center justify-center">
+                      <img src={pantry.image || "/placeholder.svg"} alt={pantry.name} className="w-full h-full object-cover" />
                     </div>
-                  </CardContent>
-                </Card>
+                  }
+                  right={
+                    <div className="text-gray-400">
+                      <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 9L5 5L1 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  }
+                >
+                  <div className="p-3">
+                    <h3 className="font-semibold text-sm text-gray-800 mb-1">{pantry.name}</h3>
+                    <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
+                      <MapPin className="w-3 h-3" />
+                      <span>{pantry.distance}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                      <Apple className="w-3 h-3" />
+                      <span>{pantry.itemCount} items available</span>
+                    </div>
+                  </div>
+                </MediaCard>
               ))}
             </div>
           </CardSectionsLayout>
