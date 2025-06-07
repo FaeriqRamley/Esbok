@@ -1,13 +1,13 @@
-import BottomNav from "@/components/bottom-nav";
 import { pantryItems } from "@/lib/data";
 import { Apple, Users, Heart, Clock, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import PageLayout from "@/components/page-layout";
+import CardSectionsLayout from "@/components/card-sections-layout";
 
 export default function HomePage() {
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto pb-20 space-y-5">
+    <PageLayout contentClassName="space-y-5">
         {/* Header */}
         <div className="text-center py-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Welcome to Esbok</h1>
@@ -46,8 +46,7 @@ export default function HomePage() {
         </div>
 
         {/* Recent Activity */}
-        <div className="px-5">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">Recent Activity</h2>
+        <CardSectionsLayout title="Recent Activity">
           <div className="space-y-4">
             {pantryItems.map((item) => (
               <Card key={item.id} className="border border-esbok-border">
@@ -81,9 +80,7 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
-        </div>
-      </div>
-      <BottomNav />
-    </div>
+        </CardSectionsLayout>
+    </PageLayout>
   );
 }

@@ -1,13 +1,13 @@
-import BottomNav from "@/components/bottom-nav";
 import { nearbyPantries } from "@/lib/data";
 import { MapPin, Apple, Plus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import PageLayout from "@/components/page-layout";
+import CardSectionsLayout from "@/components/card-sections-layout";
 
 export default function NearbyPage() {
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto pb-20 flex flex-col h-full">
+    <PageLayout contentClassName="flex flex-col h-full">
         {/* Map Section */}
         <div className="relative w-full h-64 bg-gray-100 border-b border-esbok-border">
           <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
@@ -64,8 +64,7 @@ export default function NearbyPage() {
           </Button>
         </div>
         <div className="flex-1 overflow-y-auto">
-          <div className="px-5 py-4">
-            <h2 className="text-lg font-bold text-gray-800 mb-4">Nearby Pantries</h2>
+          <CardSectionsLayout title="Nearby Pantries" className="py-4">
             <div className="space-y-3">
               {nearbyPantries.map((pantry) => (
                 <Card key={pantry.id} className="border border-esbok-border overflow-hidden">
@@ -97,10 +96,8 @@ export default function NearbyPage() {
                 </Card>
               ))}
             </div>
-          </div>
+          </CardSectionsLayout>
         </div>
-      </div>
-      <BottomNav />
-    </div>
+    </PageLayout>
   );
 }

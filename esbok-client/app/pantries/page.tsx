@@ -1,19 +1,19 @@
 'use client'
 import { useState } from 'react';
-import BottomNav from '@/components/bottom-nav';
 import { allPantries, recentlyViewedPantries } from '@/lib/data';
 import { Apple, Plus, MapPin, Heart, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import PageLayout from '@/components/page-layout';
+import CardSectionsLayout from '@/components/card-sections-layout';
 
 export default function PantriesPage() {
   const [pantryFilter, setPantryFilter] = useState('admin');
   const filteredPantries = allPantries.filter((p) => p.status === pantryFilter);
 
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto pb-20 space-y-6">
+    <PageLayout contentClassName="space-y-6">
         <div className="px-5 pt-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">My Pantries</h1>
           <p className="text-sm text-gray-600">Manage and contribute to your pantries</p>
@@ -52,7 +52,7 @@ export default function PantriesPage() {
             </Button>
           </div>
         </div>
-        <div className="px-5 pb-6">
+        <CardSectionsLayout className="pb-6">
           <div className="space-y-3">
             {filteredPantries
               .sort((a, b) => (b.isFavorite ? 1 : 0) - (a.isFavorite ? 1 : 0))
@@ -118,10 +118,9 @@ export default function PantriesPage() {
               <p className="text-gray-500 text-sm">No {pantryFilter} pantries found</p>
             </div>
           )}
-        </div>
+        </CardSectionsLayout>
         {pantryFilter === 'admin' && (
-          <div className="px-5 pb-6">
-            <h2 className="text-lg font-bold text-gray-800 mb-4">Recently Viewed</h2>
+          <CardSectionsLayout title="Recently Viewed" className="pb-6">
             <div className="space-y-3">
               {recentlyViewedPantries.map((pantry) => (
                 <Card key={pantry.id} className="border border-esbok-border overflow-hidden">
@@ -152,10 +151,8 @@ export default function PantriesPage() {
                 </Card>
               ))}
             </div>
-          </div>
+          </CardSectionsLayout>
         )}
-      </div>
-      <BottomNav />
-    </div>
+    </PageLayout>
   );
 }
