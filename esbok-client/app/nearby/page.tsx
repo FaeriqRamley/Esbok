@@ -1,6 +1,5 @@
 import { nearbyPantries } from "@/lib/data";
 import { MapPin, Apple, Plus } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PageLayout from "@/components/page-layout";
 import CardSectionsLayout from "@/components/card-sections-layout";

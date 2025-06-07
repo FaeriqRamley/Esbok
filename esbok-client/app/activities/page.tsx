@@ -1,6 +1,5 @@
 import { activityFeed, myFoodItems } from "@/lib/data";
 import { Activity, Heart, Apple, MapPin, Clock, Plus } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PageLayout from "@/components/page-layout";
 import CardSectionsLayout from "@/components/card-sections-layout";

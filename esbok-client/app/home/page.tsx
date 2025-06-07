@@ -1,6 +1,5 @@
 import { pantryItems } from "@/lib/data";
 import { Apple, Users, Heart, Clock, MapPin } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import PageLayout from "@/components/page-layout";
 import CardSectionsLayout from "@/components/card-sections-layout";

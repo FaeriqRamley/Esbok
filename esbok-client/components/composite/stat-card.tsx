@@ -1,15 +1,53 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
 
-interface StatCardProps {
+const statCardVariants = cva("text-center", {
+  variants: {
+    size: {
+      sm: "p-3",
+      lg: "p-4",
+    },
+  },
+  defaultVariants: {
+    size: "lg",
+  },
+});
+
+const iconContainerVariants = cva(
+  "mx-auto rounded-full flex items-center justify-center",
+  {
+    variants: {
+      size: {
+        sm: "w-6 h-6 mb-1",
+        lg: "w-8 h-8 mb-2",
+      },
+    },
+    defaultVariants: {
+      size: "lg",
+    },
+  }
+);
+
+const iconVariants = cva("", {
+  variants: {
+    size: {
+      sm: "w-3 h-3",
+      lg: "w-4 h-4",
+    },
+  },
+  defaultVariants: {
+    size: "lg",
+  },
+});
+
+interface StatCardProps extends VariantProps<typeof statCardVariants> {
   icon: React.ReactNode;
   label: React.ReactNode;
   value: React.ReactNode;
   /** Background color utility classes for the icon container. */
   iconBgClass?: string;
-  /** Size variant. Default is 'lg' */
-  size?: "sm" | "lg";
   className?: string;
 }
 
@@ -18,29 +56,16 @@ export default function StatCard({
   label,
   value,
   iconBgClass = "bg-esbok-mint",
-  size = "lg",
+  size,
   className,
 }: StatCardProps) {
-  const iconSize = size === "sm" ? "w-6 h-6" : "w-8 h-8";
-  const innerIconSize = size === "sm" ? "w-3 h-3" : "w-4 h-4";
-  const padding = size === "sm" ? "p-3" : "p-4";
-  const margin = size === "sm" ? "mb-1" : "mb-2";
-
   return (
     <Card className={cn("border border-esbok-border", className)}>
-      <CardContent className={cn(padding, "text-center")}>
-        <div
-          className={cn(
-            iconSize,
-            margin,
-            "mx-auto rounded-full flex items-center justify-center",
-            iconBgClass
-          )}
-        >
-          {/* clone element to apply size */}
+      <CardContent className={cn(statCardVariants({ size }))}>
+        <div className={cn(iconContainerVariants({ size }), iconBgClass)}>
           {React.isValidElement(icon)
             ? React.cloneElement(icon as React.ReactElement, {
-                className: cn(innerIconSize, icon.props.className),
+                className: cn(iconVariants({ size }), icon.props.className),
               })
             : icon}
         </div>

@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { allPantries, recentlyViewedPantries } from '@/lib/data';
 import { Apple, Plus, MapPin, Heart, Clock } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/page-layout';
