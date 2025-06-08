@@ -6,11 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 export default function SignInPage() {
   const supabase = createClient();
-  const [state, formAction] = useFormState(login, { error: null });
+  const [state, formAction] = useActionState(login, { error: null });
 
   const handleGoogle = async () => {
     await supabase.auth.signInWithOAuth({
