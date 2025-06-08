@@ -7,20 +7,20 @@ import StatCard from "@/components/composite/stat-card";
 import MediaCard from "@/components/composite/media-card";
 // import { Suspense } from "react";
 // import { TestList } from "./TestList";
-// import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 
 export const revalidate = false;
 
 export default async function HomePage() {
-  // const supabase = await createClient();
-  // const { data: user } = await supabase.auth.getUser();
-  // console.log("User:", user);
+  const supabase = await createClient();
+  const { data: user } = await supabase.auth.getUser();
+  console.log("User:", user);
   return (
     <PageLayout contentClassName="space-y-5">
       {/* Header */}
       <div className="text-center py-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          {/* Welcome to Esbok {user?.user?.email || "Guest"}! */}
+          Welcome to Esbok {user?.user?.email || "Guest"}!
         </h1>
         <p className="text-sm text-gray-600 px-4">
           Share food, build community, reduce waste

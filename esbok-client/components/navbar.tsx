@@ -5,8 +5,13 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import { NavbarAuth } from "./navbar-auth";
+import type { User } from "@supabase/supabase-js";
 
-export default function Navbar() {
+interface NavbarProps {
+  user: User | null;
+}
+
+export default function Navbar({ user }: NavbarProps) {
   const pathname = usePathname();
 
   const navLinks = [
@@ -51,7 +56,7 @@ export default function Navbar() {
         </nav>
 
         <Suspense fallback={<span className="text-gray-500">Loading...</span>}>
-          <NavbarAuth />
+          <NavbarAuth user={user} />
         </Suspense>
       </div>
     </div>
