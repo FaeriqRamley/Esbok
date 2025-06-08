@@ -1,39 +1,60 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export type AuthState = {
-  error?: string;
-};
-export async function signIn(_: AuthState | undefined, formData: FormData) {
-  const supabase = await createClient();
-  const email = String(formData.get("email"));
-  const password = String(formData.get("password"));
+import { createClient } from "@/utils/supabase/server";
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+export async function login(prevState: any, formData: FormData) {
+  const supabase = await createClient();
+
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signInWithPassword(data);
+
   if (error) {
-    return { error: error.message };
+    // redirect("/error");
+    return { error: error?.message };
   }
 
-  redirect("/home");
+  revalidatePath("/", "layout");
+  redirect("/");
+  // to shut up the linter at sign-in/page.tsx
+  return { error: null };
 }
 
-export async function signUp(_: AuthState | undefined, formData: FormData) {
+export async function signup(prevState: any, formData: FormData) {
   const supabase = await createClient();
-  const email = String(formData.get("email"));
-  const password = String(formData.get("password"));
 
-  const { error } = await supabase.auth.signUp({ email, password });
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signUp(data);
+
   if (error) {
-    return { error: error.message };
+    // redirect("/error");
+    return { error: error?.message };
   }
 
-  redirect("/home");
+  revalidatePath("/", "layout");
+  redirect("/");
+  // to shut up the linter at sign-up/page.tsx
+  return { error: null };
 }
 
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/sign-in");
+  revalidatePath("/", "layout");
+  redirect("/");
 }

@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
+import { NavbarAuth } from "./navbar-auth";
 
 export default function Navbar() {
   const pathname = usePathname();
+
   const navLinks = [
     { href: "/home", label: "Home" },
     { href: "/nearby", label: "Nearby" },
@@ -37,7 +40,9 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               className={
-                pathname === link.href ? "text-esbok-primary" : "hover:text-gray-900"
+                pathname === link.href
+                  ? "text-esbok-primary"
+                  : "hover:text-gray-900"
               }
             >
               {link.label}
@@ -45,14 +50,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop avatar/sign in */}
-        <Button
-          variant="outline"
-          size="sm"
-          className="hidden md:inline-flex rounded-full ml-auto"
-        >
-          Sign In
-        </Button>
+        <Suspense fallback={<span className="text-gray-500">Loading...</span>}>
+          <NavbarAuth />
+        </Suspense>
       </div>
     </div>
   );
