@@ -1,6 +1,7 @@
 import BottomNav from "@/components/bottom-nav";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { signOut } from "../auth/actions";
 
 export default function ProfilePage() {
   return (
@@ -64,28 +65,30 @@ export default function ProfilePage() {
               />
             </svg>
           </Button>
-          <Button
-            variant="ghost"
-            className="w-full flex items-center justify-between border border-esbok-border rounded-lg px-4 py-3 text-gray-800"
-          >
-            <span>Log Out</span>
-            <svg
-              width="6"
-              height="10"
-              viewBox="0 0 6 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-gray-400"
+          <form action={signOut} className="w-full">
+            <Button
+              variant="ghost"
+              className="w-full flex items-center justify-between border border-esbok-border rounded-lg px-4 py-3 text-gray-800"
             >
-              <path
-                d="M1 9L5 5L1 1"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Button>
+              <span>Log Out</span>
+              <svg
+                width="6"
+                height="10"
+                viewBox="0 0 6 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-gray-400"
+              >
+                <path
+                  d="M1 9L5 5L1 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Button>
+          </form>
         </div>
       </div>
       <BottomNav />
