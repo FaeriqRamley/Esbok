@@ -1,10 +1,10 @@
 import { Database } from "@/types/supabase";
 
-type TestTableRow = Database["public"]["Tables"]["test_table"]["Row"];
+type TestTableRow = Database["public"]["Tables"]["pantry"]["Row"];
 
 export const TestList = async () => {
   const res = await fetch(
-    `${process.env["NEXT_PUBLIC_BASE_URL"] ?? ""}/api/test_table`,
+    `${process.env["NEXT_PUBLIC_BASE_URL"] ?? ""}/api/pantry`,
     {
       next: { revalidate: 10 },
     }
